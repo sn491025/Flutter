@@ -1,20 +1,65 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:flutter/material.dart';
 
-void main() => runApp(const Contact());
+void main() => runApp(const ContactProfilePage());
 
-class Contact extends StatelessWidget {
-  const Contact({super.key});
+// ignore: camel_case_types
+enum APP_THEME { LIGHT, DARK }
+
+class MyAppThemes {
+  static ThemeData appThemeBrightness() {
+    return ThemeData(
+        // General theme
+        brightness: Brightness.light,
+        fontFamily: 'Georgia',
+
+        // appBar theme
+        appBarTheme: const AppBarTheme(
+          color: Color.fromARGB(255, 9, 82, 160),
+        ),
+
+        // icon Theme
+        iconTheme: IconThemeData(color: Colors.red.shade800),
+
+        // FBA(Floating Action Button)
+        floatingActionButtonTheme: const FloatingActionButtonThemeData(
+            backgroundColor: Colors.white, foregroundColor: Colors.black));
+  }
+
+  static ThemeData appThemeDark() {
+    return ThemeData(
+        brightness: Brightness.dark,
+        fontFamily: 'Georgia',
+        appBarTheme: const AppBarTheme(
+          color: Color.fromARGB(255, 9, 82, 160),
+        ),
+        iconTheme: IconThemeData(color: Colors.red.shade800));
+  }
+}
+
+class ContactProfilePage extends StatefulWidget {
+  const ContactProfilePage({super.key});
+
+  @override
+  _ContactProfilePageState createState() => _ContactProfilePageState();
+}
+
+class _ContactProfilePageState extends State<ContactProfilePage> {
+  var currentTheme = APP_THEME.LIGHT;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
+        debugShowCheckedModeBanner: false,
+        theme: currentTheme == APP_THEME.DARK
+            ? MyAppThemes.appThemeDark()
+            : MyAppThemes.appThemeBrightness(),
+        home: Scaffold(
           appBar: AppBar(
             leading: const Icon(
               Icons.arrow_back,
-              color: Colors.black,
             ),
-            backgroundColor: Colors.purple,
             actions: <Widget>[
               IconButton(
                 onPressed: () {
@@ -22,7 +67,6 @@ class Contact extends StatelessWidget {
                 },
                 icon: const Icon(
                   Icons.star_border,
-                  color: Colors.black,
                   size: 30,
                 ),
               )
@@ -55,7 +99,7 @@ class Contact extends StatelessWidget {
                             child: Text(
                               'Captain America',
                               style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 35),
+                                  fontWeight: FontWeight.bold, fontSize: 30),
                             ),
                           ),
                         ],
@@ -66,16 +110,22 @@ class Contact extends StatelessWidget {
 
                   Container(
                     margin: const EdgeInsets.only(top: 8, bottom: 8),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        buildCallButton(),
-                        buildTextButton(),
-                        buildVideoButton(),
-                        buildEmailButton(),
-                        buildDirectionsButton(),
-                        buildPayButton()
-                      ],
+                    child: Theme(
+                      data: ThemeData(
+                          iconTheme: IconThemeData(
+                        color: Colors.indigo.shade900,
+                      )),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          buildCallButton(),
+                          buildTextButton(),
+                          buildVideoButton(),
+                          buildEmailButton(),
+                          buildDirectionsButton(),
+                          buildPayButton()
+                        ],
+                      ),
                     ),
                   ),
                   const Divider(
@@ -102,12 +152,25 @@ class Contact extends StatelessWidget {
 
                   const Divider(
                     color: Colors.indigo,
-                  )
+                  ),
                 ],
               )
             ],
-          )),
-    );
+          ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {},
+            child: IconButton(
+              icon: Icon(Icons.add),
+              onPressed: (() {
+                setState(() {
+                  currentTheme == APP_THEME.DARK
+                      ? currentTheme = APP_THEME.LIGHT
+                      : currentTheme = APP_THEME.DARK;
+                });
+              }),
+            ),
+          ),
+        ));
   }
 }
 
@@ -116,9 +179,8 @@ Widget buildCallButton() {
   return Column(
     children: <Widget>[
       IconButton(
-        icon: Icon(
+        icon: const Icon(
           Icons.call,
-          color: Colors.indigo.shade800,
         ),
         onPressed: () {},
       ),
@@ -132,7 +194,7 @@ Widget buildTextButton() {
   return Column(
     children: <Widget>[
       IconButton(
-        icon: Icon(Icons.message, color: Colors.indigo.shade800),
+        icon: const Icon(Icons.message),
         onPressed: () {},
       ),
       const Text("Text")
@@ -145,7 +207,9 @@ Widget buildVideoButton() {
   return Column(
     children: <Widget>[
       IconButton(
-        icon: Icon(Icons.video_call, color: Colors.indigo.shade800),
+        icon: const Icon(
+          Icons.video_call,
+        ),
         onPressed: () {},
       ),
       const Text("Video")
@@ -158,7 +222,9 @@ Widget buildEmailButton() {
   return Column(
     children: <Widget>[
       IconButton(
-        icon: Icon(Icons.email, color: Colors.indigo.shade800),
+        icon: const Icon(
+          Icons.email,
+        ),
         onPressed: () {},
       ),
       const Text("Email")
@@ -171,7 +237,9 @@ Widget buildDirectionsButton() {
   return Column(
     children: <Widget>[
       IconButton(
-        icon: Icon(Icons.directions, color: Colors.indigo.shade900),
+        icon: const Icon(
+          Icons.directions,
+        ),
         onPressed: () {},
       ),
       const Text("Direction")
@@ -184,7 +252,9 @@ Widget buildPayButton() {
   return Column(
     children: <Widget>[
       IconButton(
-        icon: Icon(Icons.payment, color: Colors.indigo.shade800),
+        icon: const Icon(
+          Icons.payment,
+        ),
         onPressed: () {},
       ),
       const Text("Pay")

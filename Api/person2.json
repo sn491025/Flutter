@@ -1,0 +1,22 @@
+[
+    {
+        "name" : "san2",
+        "age" : 19,
+        "image" : "http://127.0.0.1:5500/asset/—Pngtree—a%20true%20friendship%20between%20two_6537826.png"
+    },
+    {
+        "name": "Dev2",
+        "age": 19,
+        "image" : "http://127.0.0.1:5500/asset/Avengers_%20Endgame%20Textless%20Phone%20Wallpaper.png"
+    },
+    {
+        "name": "Leo2",
+        "age": 20,
+        "image" : "http://127.0.0.1:5500/asset/Friends.jpeg"
+    },
+    {
+        "name": "Ewar2",
+        "age" : 21,
+        "image" : "http://127.0.0.1:5500/asset/Friendship%20Day%20Special%20Shayari%20Dialogue%20Status%20Video%20%23newwhatsappstatus%20%23shorts%20%23viral%20%23trending.jpeg"
+    }
+]
